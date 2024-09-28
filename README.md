@@ -11,16 +11,35 @@
 ### 下载/clone项目
     git clone https://github.com/weihongyu1/spring-boot-cli.git
 ### 生成脚手架项目
-    # 在项目目录下执行
+
+在项目目录下执行
+
     mvn archetype:create-from-project
 ### 安装到本地Maven仓库
-    # 进入如下目录
-    cd ./target/generated-sources/archetype
+**进入如下目录**
 
-    # 安装到本地仓库
-    mvn install
+```
+cd ./target/generated-sources/archetype
+```
+
+**安装到本地仓库**
+
+```
+mvn install
+```
+
 ### 使用
-    1. 使用命令创建项目
-        mvn archetype:generate -DgroupId=com.example -DartifactId=demo -DarchetypeGroupId=com.example -DarchetypeArtifactId=spring-boot-cli -DarchetypeVersion=1.0-SNAPSHOT -DinteractiveMode=false
-    2. idea创建项目
-    
+
+**使用命令创建项目**
+
+```
+mvn archetype:generate -DgroupId=com.example -DartifactId=demo -DarchetypeGroupId=com.example -DarchetypeArtifactId=spring-boot-cli -DarchetypeVersion=1.0-SNAPSHOT -DinteractiveMode=false
+```
+
+**IDEA创建项目**
+
+![](https://github.com/weihongyu1/spring-boot-cli/blob/dev/data/img/%E4%BD%BF%E7%94%A8.png?raw=true)
+
+设置Maven仓库为本地仓库
+
+![](https://github.com/weihongyu1/spring-boot-cli/blob/dev/data/img/%E8%AE%BE%E7%BD%AEMaven.png?raw=true)
