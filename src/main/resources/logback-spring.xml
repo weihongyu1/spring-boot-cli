@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!--获取主机名-->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <!-- 彩色日志 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+    <conversionRule conversionWord="wex"
+                    converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+    <conversionRule conversionWord="wEx"
+                    converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
+    <property name="CONSOLE_LOG_PATTERN"
+              value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr([%X{traceId}]){cyan} %clr([%X{channel}]){blue} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 文件输出 -->
+    <appender name="JSON" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>./logs/json.log</file>
+        <append>true</append>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <pattern>
+                    <pattern>
+                        {
+                        "log_time": "%date{yyyy-MM-ddHH:mm:ss.SSS}",
+                        "host": "${hostname}",
+                        <!--日志级别-->
+                        "level": "%level",
+                        <!--进程ID-->
+                        "pid": "${PID:-}",
+                        "thread": "%thread",
+                        "class": "%logger",
+                        "method": "%method",
+                        "line": "%line",
+                        <!--日志打印的信息-->
+                        "message": "%message",
+                        <!--堆栈异常信息-->
+                        "stack_trace":"%xEx"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+        <prudent>false</prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./logs/%d{yyyy-MM-dd}/json.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+    </appender>
+    <appender name="ASYNC_JSON" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- 当队列的剩余容量小于这个阈值并且当前日志level为 TRACE, DEBUG or INFO ，则丢弃这些日志。 -->
+        <discardingThreshold>0</discardingThreshold>
+        <!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
+        <queueSize>1024</queueSize>
+        <!-- 新增这行为了打印栈堆信息 -->
+        <includeCallerData>true</includeCallerData>
+        <!-- 添加附加的appender,最多只能添加一个 -->
+        <appender-ref ref="ASYNC_JSON" />
+    </appender>
+
+    <!-- 业务日志 -->
+    <appender name="BUSINESS_JSON" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>./logs/business.log</file>
+        <append>true</append>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="com.why.springbootcli.common.config.log.LogstashLayout"/>
+        </encoder>
+        <prudent>false</prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./logs/%d{yyyy-MM-dd}/business.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+    </appender>
+    <appender name="ASYNC_BUSINESS_JSON" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- 当队列的剩余容量小于这个阈值并且当前日志level为 TRACE, DEBUG or INFO ，则丢弃这些日志。 -->
+        <discardingThreshold>0</discardingThreshold>
+        <!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
+        <queueSize>1024</queueSize>
+        <!-- 新增这行为了打印栈堆信息 -->
+        <includeCallerData>true</includeCallerData>
+        <!-- 添加附加的appender,最多只能添加一个 -->
+        <appender-ref ref="BUSINESS_JSON" />
+    </appender>
+
+    <!-- 日志输出级别 -->
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="ASYNC_JSON" />
+    </root>
+
+    <logger name="BUSINESS_LOG">
+        <appender-ref ref="ASYNC_BUSINESS_JSON" />
+    </logger>
+
+</configuration>
