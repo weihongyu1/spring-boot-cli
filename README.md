@@ -38,8 +38,8 @@ mvn archetype:generate -DgroupId=com.example -DartifactId=demo -DarchetypeGroupI
 
 **IDEA创建项目**
 
-![](./data/img/使用.png)
+![](https://github.com/weihongyu1/spring-boot-cli/blob/dev/data/img/%E4%BD%BF%E7%94%A8.png?raw=true)
 
 设置Maven仓库为本地仓库
 
-![](./data/img/设置Maven.png)
+![](https://github.com/weihongyu1/spring-boot-cli/blob/dev/data/img/%E8%AE%BE%E7%BD%AEMaven.png?raw=true)
