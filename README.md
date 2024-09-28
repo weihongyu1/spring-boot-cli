@@ -44,3 +44,12 @@ mvn archetype:generate -DgroupId=com.example -DartifactId=demo -DarchetypeGroupI
 设置Maven仓库为本地仓库
 
 ![](https://github.com/weihongyu1/spring-boot-cli/blob/dev/data/img/%E8%AE%BE%E7%BD%AEMaven.png?raw=true)
+
+## 其他
+
+### 访问Druid监控
+
+http://127.0.0.1/cli/druid/sql.html
+
+- 端口为项目端口
+- 路由uri需要加上Spring Boot设置的统一的前缀
