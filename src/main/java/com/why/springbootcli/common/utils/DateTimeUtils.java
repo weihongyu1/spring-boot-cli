@@ -1,4 +1,4 @@
-package com.why.springbootcli.common;
+package com.why.springbootcli.common.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
