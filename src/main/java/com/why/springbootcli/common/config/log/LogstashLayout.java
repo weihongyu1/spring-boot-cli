@@ -10,8 +10,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.why.springbootcli.common.DateTimeUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -44,15 +42,6 @@ public class LogstashLayout extends LayoutBase<ILoggingEvent> {
             className = className + "." + methodName + "(" + fileName + ":" + lineNumber + ")";
         }
         logstashEvent.put("className", className);
-        //设置服务器名称
-        try {
-            InetAddress localhost = InetAddress.getLocalHost();
-            logstashEvent.put("hostAddress", localhost.getHostAddress());
-            logstashEvent.put("hostName", localhost.getHostName());
-        } catch (UnknownHostException e) {
-            logstashEvent.put("hostAddress", "unKnown");
-            logstashEvent.put("hostName", "unKnown");
-        }
         //设置message
         String message = loggingEvent.getFormattedMessage();
         if (StringUtils.isNotBlank(message)) {
