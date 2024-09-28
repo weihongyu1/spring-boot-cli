@@ -24,3 +24,4 @@
         mvn archetype:generate -DgroupId=com.example -DartifactId=demo -DarchetypeGroupId=com.example -DarchetypeArtifactId=spring-boot-cli -DarchetypeVersion=1.0-SNAPSHOT -DinteractiveMode=false
     2. idea创建项目
     https://github.com/weihongyu1/spring-boot-cli/blob/main/data/img/使用.png
+    3. 设置项目maven为本地仓库
