@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.why.springbootcli.dao.UserMapper">
+    <select id="getUserInfo" resultType="com.why.springbootcli.common.entity.po.UserPO">
+        SELECT
+            id, username, create_time, update_time
+        FROM
+            tbl_user
+        WHERE
+            id = #{id}
+    </select>
+</mapper>
